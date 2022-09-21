@@ -1,19 +1,23 @@
 const express =require('express')
+const messagesRouter =require('./routes/messages') 
 
 class Server{
     constructor(){
         this.app = express()
-        thi.routes()
+        this.paths = {
+            messages:"/api/v1/messages"
+        }
+        this.routes()
     }
     routes(){
-        this.app.get('/', (req, res)=> {
-            res.send("hello Word")
-    })  
-}
+        this.app.use(this.paths.messages,messagesRouter)
+            
+    }  
+
 listen(){
-    this.app.listen(process.env.PORT,() =>{
+    this.app.listen(process.env.PORT, () =>{
         console.log("Backend en ejecución en el puerto",process.env.PORT)
     })
 }
 }
-modele.exports = server
+module.exports = Server
