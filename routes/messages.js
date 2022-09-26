@@ -7,7 +7,7 @@ const{
     postMessage,
     putMessage,
     deleteMessage
-} =require('../Controllers/messages.js)
+} =require('../Controllers/messages.js')
 
 router.get("/", rootMessage)
 router.get("/hi", hiMessage)
