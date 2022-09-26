@@ -7,4 +7,13 @@ const hiMessage = (req,res) =>{
 const byeMessage = (req,res) =>{
     res.send('Adiós mundo') 
 }
-module.exports ={rootMessage,hiMessage,byeMessage}
+const postMessage = (req,res) =>{
+    res.send('Mensaje POST') 
+}
+const putMessage = (req,res) =>{
+    res.send('Mensaje POST')
+}
+const deleteMessage = (req,res) =>{
+    res.send('Mensaje DELETE ') 
+}
+module.exports = router
