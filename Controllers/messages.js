@@ -1,8 +1,16 @@
 const { request, response } = require("express")
-const rootMessage=(req=request,res=response) =>{
-    res.status(404).json({msg:'Hola'})
 
+const rootMessage=(req=request,res=response) =>{
+    const {texto1,texto2}=req.query
+    //if(!texto1 || !texto2){
+    //res.status(404).json({
+     //msg:"no se han encontrado los parametros necesarios,este EndPoint ocupa los parametos 
+     //"texto1" "texto2""
+})
 }
+if(!texto1){
+    res.status(404).json({msg:"falta el parametro"}) 
+    }
 const hiMessage = (req=request,res= response) =>{
     res.status(405).json({msg:'Hola Mundo'})    
 }
@@ -24,5 +32,4 @@ module.exports = {
     byeMessage,
     postMessage,
     putMessage,
-    deleteMessage
-}
+    deleteMessage}
