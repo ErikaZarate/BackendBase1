@@ -10,7 +10,7 @@ const{
 } =require('../Controllers/messages.js')
 
 router.get("/", rootMessage)
-router.get("/hi", hiMessage)
+router.get("/hi/:name", hiMessage)
 router.get("/bye",byeMessage)
 
 router.post('/',postMessage)

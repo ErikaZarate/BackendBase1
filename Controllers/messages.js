@@ -6,14 +6,22 @@ const rootMessage=(req=request,res=response) =>{
     //res.status(404).json({
      //msg:"no se han encontrado los parametros necesarios,este EndPoint ocupa los parametos 
      //"texto1" "texto2""
-})
-}
+//)
 if(!texto1){
-    res.status(404).json({msg:"falta el parametro"}) 
+    res.status(404).json({msg:"falta el parametro 'texto1'"}) 
     }
+    if(!texto2){
+        res.status(404).json({msg:"falta el parametro'texto2'"}) 
+        }
+        res.status(200).json({msg:texto1+''+texto2})
+
+    }
+
 const hiMessage = (req=request,res= response) =>{
-    res.status(405).json({msg:'Hola Mundo'})    
+    const {name}= req.params
+    res.json({msg:'Hola '+ name})    
 }
+
 const byeMessage = (req=request,res=response) =>{
     res.status(406).json({msg:'Adiós mundo'}) 
 }
