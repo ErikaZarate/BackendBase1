@@ -14,6 +14,10 @@ class Server{
             
     }  
 
+middlewares(){
+    this.app.use(cors())
+    this.app.use(express.json())
+}
 listen(){
     this.app.listen(process.env.PORT, () =>{
         console.log("Backend en ejecución en el puerto",process.env.PORT)

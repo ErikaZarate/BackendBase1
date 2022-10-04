@@ -23,16 +23,18 @@ const hiMessage = (req=request,res= response) =>{
 }
 
 const byeMessage = (req=request,res=response) =>{
-    res.status(406).json({msg:'Adiós mundo'}) 
+    res.json({msg:'Adiós mundo'}) 
 }
 const postMessage = (req=request,res= response) =>{
-    res.status(407).json({msg:'Mensaje POST'}) 
+    const {no_control,nombre}=req.body
+    //console.log({no_control,nombre})
+    res.json({msg:'numero de control= ${no_control},nombre=${nombre}'}) 
 }
 const putMessage = (req=request,res=response) =>{
-    res.status(408).json({msg:'Mensaje POST'})
+    res.json({msg:'Mensaje POST'})
 }
 const deleteMessage = (req=request,res=response) =>{
-    res.status(409).json({msg:'Mensaje DELETE '}) 
+    res.json({msg:'Mensaje DELETE '}) 
 }
 module.exports = {
     rootMessage,
