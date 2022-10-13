@@ -1,6 +1,7 @@
 const express =require('express')
 const messagesRouter =require('./routes/messages') 
-
+const messagesRouter =require('./routes/usuarios') 
+const cors=require("cors")
 class Server{
     constructor(){
         this.app = express()
