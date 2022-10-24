@@ -48,4 +48,27 @@ const getUserByID=async(req = request,res = response) => {
         }
     }
 }
-module.exports={getUsers,getUserByID}
+
+const deleteUserByID=async(req = request,res = response) => {
+    const{id}=req.query
+     let conn;
+ 
+     try{
+         conn=await pool.getConnection()
+         const {affectedRows}=await conn.query(`UPDATE Usuarios SET Activo = 'N' WHERE ID= ${id}`,(error)=>{throw  new Error (error)})
+ 
+         if(!affectedRows){
+             res.status(404).json({msg:`no se encontraon registros con el ID ${id}`})
+             return
+         }
+         res.json({msg:`El usuario con ID ${id}se elimino satisfactoriamente `})
+     }catch(error){
+         console.log(error)
+         res.status(500).json({error})
+     }finally{
+         if(conn){
+             conn.end()
+         }
+     }
+ }
+module.exports={getUsers,getUserByID,deleteUserByID}
