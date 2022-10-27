@@ -79,14 +79,14 @@ const deleteUserByID=async(req = request,res = response) => {
         Edad,
         Genero,
         Contrasena, 
-        Fecha_Nacimiento, 
+        Fecha_Nacimiento='1900-01-01',
         Activo
     }=req.body
     if(
         !Nombre||
         !Apellidos||
         !Edad||
-        !Genero||
+        !Usuario||
         !Contrasena||
         !Activo
     ){
@@ -96,6 +96,11 @@ const deleteUserByID=async(req = request,res = response) => {
  let conn;
      try{
          conn=await pool.getConnection()
+
+         const [user]=await conn.query(`SELECT Usuario FROM usuarios WHERE Usuario= '${Usuario}'`)
+         if (user){
+            res.status(403).json({msg:`El usuario ${Usuario} ya se encuentra registrado.`})
+         }
          const {affectedRows}=await conn.query(`
 INSERT INTO Usuarios (
         Nombre,
@@ -109,7 +114,7 @@ INSERT INTO Usuarios (
         '${Nombre}',
         '${Apellidos}',
         '${Edad}',
-        '${Genero}',
+        '${Genero||''}',
         '${Contrasena}',
         '${Fecha_Nacimiento}',
         '${Activo}',
@@ -131,3 +136,4 @@ INSERT INTO Usuarios (
      }
  }
 module.exports={getUsers,getUserByID,deleteUserByID,addUser}
+
