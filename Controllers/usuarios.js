@@ -1,4 +1,5 @@
 const { request, response } = require("express")
+const bcryptjs=require("bcryptjs")
 const pool=require("../db/connection")
 const getUsers=async(req = request,res = response) => {
    
@@ -72,6 +73,7 @@ const deleteUserByID=async(req = request,res = response) => {
      }
  }
 
+
  const addUser=async(req = request,res = response) => {
     const{
         Nombre,
@@ -79,6 +81,7 @@ const deleteUserByID=async(req = request,res = response) => {
         Edad,
         Genero,
         Contrasena, 
+        Usuario,
         Fecha_Nacimiento='1900-01-01',
         Activo
     }=req.body
@@ -97,12 +100,16 @@ const deleteUserByID=async(req = request,res = response) => {
      try{
          conn=await pool.getConnection()
 
-         const [user]=await conn.query(`SELECT Usuario FROM usuarios WHERE Usuario= '${Usuario}'`)
+         const [user]=await conn.query(`SELECT Usuario FROM Usuarios WHERE Usuario= '${Usuario}'`)
          if (user){
             res.status(403).json({msg:`El usuario ${Usuario} ya se encuentra registrado.`})
+        return
          }
+        const salt=bcryptjs.genSaltSync()
+        const ContrasenaCifrada=bcryptjs.hashSync(Contrasena,salt)
          const {affectedRows}=await conn.query(`
 INSERT INTO Usuarios (
+        Usuario,
         Nombre,
         Apellidos,
         Edad,
@@ -111,13 +118,14 @@ INSERT INTO Usuarios (
         Fecha_Nacimiento, 
         Activo
         )VALUES(
+            '${Usuario}', 
         '${Nombre}',
         '${Apellidos}',
-        '${Edad}',
+        ${Edad},
         '${Genero||''}',
-        '${Contrasena}',
+        '${ContrasenaCifrada}',
         '${Fecha_Nacimiento}',
-        '${Activo}',
+        '${Activo}'
         )
         `,(error)=>{throw new error})
  
@@ -125,7 +133,7 @@ INSERT INTO Usuarios (
              res.status(404).json({msg:`no se pudo agregar el registro del usuario${Usuario}`})
              return
          }
-         res.json({msg:`El usuario con ${Usuario}se agrago satisfactoriamente `})
+         res.json({msg:`El usuario con ${Usuario}se agrego satisfactoriamente `})
      }catch(error){
          console.log(error)
          res.status(500).json({error})
@@ -151,7 +159,6 @@ INSERT INTO Usuarios (
         !Nombre||
         !Apellidos||
         !Edad||
-        
         !Contrasena
         
     ){
