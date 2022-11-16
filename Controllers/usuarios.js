@@ -123,7 +123,14 @@ INSERT INTO Usuarios (
         '${Apellidos}',
         ${Edad},
         '${Genero||''}',
-        '${ContrasenaCifrada}',
+        '${ContrasenaCifrada}', ${Nombre},
+        '${Caracteristicas}',
+        ${AtaTierra},
+        '${AtaAereos}',
+        '${Atributos}',
+        '${Burlas}',
+        '${Curiosidades}',
+        '${Activo}'
         '${Fecha_Nacimiento}',
         '${Activo}'
         )
