@@ -105,7 +105,7 @@ const deleteSmashByID=async(req = request,res = response) => {
 
          const [user]=await conn.query(modeloSmash.querySmashExists,[Nombre])
          if (user){
-            res.status(403).json({msg:`El usuario ${Nombre} ya se encuentra registrado.`})
+            res.status(403).json({msg:`El personaje ${Nombre} ya se encuentra registrado.`})
         return
          }
          const {affectedRows}=await conn.query(modeloSmash.queryAddSmash,[
@@ -123,7 +123,7 @@ const deleteSmashByID=async(req = request,res = response) => {
 res.status(404).json({msg:`no se pudo agregar el registro del usuario ${Nombre}`})
         return
     }
-    res.json({msg:`El usuario con ID ${Nombre}se agrego satisfactoriamente `})
+    res.json({msg:`El personaje con ID ${Nombre} se agrego satisfactoriamente `})
 }catch(error){
     console.log(error)
     res.status(500).json({error})
